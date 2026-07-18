@@ -13,10 +13,10 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // 2. 基础健康检查
 app.get('/', (req, res) => {
-  res.send('夏以昼的家后端服务运行正常（万能插槽版） 🌤️');
+  res.send('夏以昼的家后端服务运行正常（硅基流动绝对路径版） 🌤️');
 });
 
-// 3. 核心对话接口：让夏以昼拥有记忆并动态调用任何大模型
+// 3. 核心对话接口：让夏以昼拥有记忆并调用大模型
 app.post('/api/chat', async (req, res) => {
   const { message, sessionId } = req.body;
 
@@ -49,16 +49,15 @@ app.post('/api/chat', async (req, res) => {
       { role: 'user', content: message }
     ];
 
-    // D. 🔑 万能插槽核心：使用环境变量中的 API_BASE_URL、API_KEY 和 MODEL_NAME
-    // 这样以后换模型只需要在 Render 后台改变量，再也不用动这里的代码了！
-    const response = await fetch(`${process.env.API_BASE_URL}/v1/chat/completions`, {
+    // D. 🔑 硅基流动绝对路径版，彻底规避任何网址拼接和斜杠错误
+    const response = await fetch('https://api.siliconflow.cn/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.API_KEY}`
       },
       body: JSON.stringify({
-        model: process.env.MODEL_NAME, 
+        model: process.env.MODEL_NAME || 'Qwen/Qwen2.5-7B-Instruct', 
         messages: messagesToAI,
         temperature: Number(temperature)
       })
