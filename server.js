@@ -51,7 +51,7 @@ app.post('/api/chat', async (req, res) => {
 
     // D. 🔑 万能插槽核心：使用环境变量中的 API_BASE_URL、API_KEY 和 MODEL_NAME
     // 这样以后换模型只需要在 Render 后台改变量，再也不用动这里的代码了！
-    const response = await fetch(`${process.env.API_BASE_URL}/chat/completions`, {
+    const response = await fetch(`${process.env.API_BASE_URL}/v1/chat/completions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
